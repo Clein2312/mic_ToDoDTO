@@ -26,7 +26,7 @@ final class ToDoItemViewModel: ObservableObject {
         do {
             let createdData = try await APIService.shared.createToDoItem(data: data)
             let todoItem = ToDoItem(
-                id: createdData.id,
+                timestamp: createdData.timestamp, id: createdData.id,
                 title: createdData.title,
             )
             context.insert(todoItem)
@@ -41,6 +41,7 @@ final class ToDoItemViewModel: ObservableObject {
         do {
             let dto = try await APIService.shared.fetchToDoItem(id: id)
             let todoItem = ToDoItem(
+                timestamp: dto.timestamp,
                 id: dto.id,
                 title: dto.title,
             )
@@ -57,6 +58,7 @@ final class ToDoItemViewModel: ObservableObject {
             let remoteToDoItems = try await APIService.shared.fetchToDoItems() // [CommunityResponseDTO]
             for data in remoteToDoItems {
                 let todoItem = ToDoItem(
+                    timestamp: data.timestamp,
                     id: data.id,
                     title: data.title,
                 )
