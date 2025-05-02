@@ -30,7 +30,8 @@ final class ToDoItemViewModel: ObservableObject {
                 id: createdData.id!,
                 title: createdData.title ?? "No title",
                 isDone: createdData.isDone ?? false,
-                deadline: createdData.deadline ?? nil
+                deadline: createdData.deadline ?? nil,
+                priority: ToDoItem.Priority(rawValue: createdData.priority ?? "Medium")!
             )
             context.insert(todoItem)
             try context.save()
@@ -48,7 +49,8 @@ final class ToDoItemViewModel: ObservableObject {
                 id: dto.id!,
                 title: dto.title!,
                 isDone: dto.isDone ?? false,
-                deadline: dto.deadline ?? nil
+                deadline: dto.deadline ?? nil,
+                priority: ToDoItem.Priority(rawValue: dto.priority ?? "Medium")!
             )
             context.insert(todoItem)
             try context.save()
@@ -67,7 +69,8 @@ final class ToDoItemViewModel: ObservableObject {
                     id: data.id!,
                     title: data.title!,
                     isDone: data.isDone ?? false,
-                    deadline: data.deadline ?? nil
+                    deadline: data.deadline ?? nil,
+                    priority: ToDoItem.Priority(rawValue: data.priority ?? "Medium")!
                     
                 )
                 context.insert(todoItem)
@@ -87,6 +90,7 @@ final class ToDoItemViewModel: ObservableObject {
             toDoItem.id = updatedData.id!
             toDoItem.deadline = updatedData.deadline ?? nil
             toDoItem.timestamp = updatedData.timestamp!
+            toDoItem.priority = ToDoItem.Priority(rawValue: updatedData.priority ?? "Medium")!
             
             
             try context.save()
