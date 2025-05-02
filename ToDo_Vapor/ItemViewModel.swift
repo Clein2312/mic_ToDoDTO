@@ -26,8 +26,11 @@ final class ToDoItemViewModel: ObservableObject {
         do {
             let createdData = try await APIService.shared.createToDoItem(data: data)
             let todoItem = ToDoItem(
-                timestamp: createdData.timestamp, id: createdData.id,
-                title: createdData.title,
+                timestamp: createdData.timestamp!,
+                id: createdData.id!,
+                title: createdData.title ?? "No title",
+                isDone: createdData.isDone ?? false,
+                deadline: createdData.deadline ?? nil
             )
             context.insert(todoItem)
             try context.save()
@@ -41,9 +44,11 @@ final class ToDoItemViewModel: ObservableObject {
         do {
             let dto = try await APIService.shared.fetchToDoItem(id: id)
             let todoItem = ToDoItem(
-                timestamp: dto.timestamp,
-                id: dto.id,
-                title: dto.title,
+                timestamp: dto.timestamp!,
+                id: dto.id!,
+                title: dto.title!,
+                isDone: dto.isDone ?? false,
+                deadline: dto.deadline ?? nil
             )
             context.insert(todoItem)
             try context.save()
@@ -58,9 +63,12 @@ final class ToDoItemViewModel: ObservableObject {
             let remoteToDoItems = try await APIService.shared.fetchToDoItems() // [CommunityResponseDTO]
             for data in remoteToDoItems {
                 let todoItem = ToDoItem(
-                    timestamp: data.timestamp,
-                    id: data.id,
-                    title: data.title,
+                    timestamp: data.timestamp!,
+                    id: data.id!,
+                    title: data.title!,
+                    isDone: data.isDone ?? false,
+                    deadline: data.deadline ?? nil
+                    
                 )
                 context.insert(todoItem)
             }
@@ -74,7 +82,13 @@ final class ToDoItemViewModel: ObservableObject {
         guard let context = modelContext else { return }
         do {
             let updatedData = try await APIService.shared.updateToDoItem(id: toDoItem.id, data: data)
-            toDoItem.title = updatedData.title
+            toDoItem.title = updatedData.title!
+            toDoItem.isDone = updatedData.isDone!
+            toDoItem.id = updatedData.id!
+            toDoItem.deadline = updatedData.deadline ?? nil
+            toDoItem.timestamp = updatedData.timestamp!
+            
+            
             try context.save()
         } catch {
             print("Error updating community: \(error)")

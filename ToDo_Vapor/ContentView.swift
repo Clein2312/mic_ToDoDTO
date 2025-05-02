@@ -10,39 +10,62 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
-
+    @Query private var items: [ToDoItem]
+    @State private var newItemTitle: String = ""
+    
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+            
+            
+            
+            NavigationSplitView {
+                VStack{
+                    Text("ToDo App")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.tint)
+                        
+                    TextField("New ToDO item...", text: $newItemTitle)
+                        .onSubmit {
+                            addItem()
+                        }
+                        .padding()
+                        .cornerRadius(8)
+                        .font(.headline)
+                    
+                    Divider()
+                    List {
+                        ForEach(items) { item in
+                            NavigationLink {
+                                printItemInfo(item: item)
+                            } label: {
+                                Text(item.title)
+                            }
+                        }
+                        .onDelete(perform: deleteItems)
                     }
                 }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        EditButton()
+                    }
+                    ToolbarItem {
+                        Button(action: addItem) {
+                            Label("Add Item", systemImage: "plus")
+                        }
                     }
                 }
+            } detail: {
+                Text("Select an item")
             }
-        } detail: {
-            Text("Select an item")
         }
-    }
+        
+            
 
     private func addItem() {
         withAnimation {
-            let newItem = Item(timestamp: Date())
+            let newItem = ToDoItem(timestamp: Date(), title: newItemTitle)
             modelContext.insert(newItem)
+            newItemTitle = ""
         }
     }
 
@@ -53,9 +76,20 @@ struct ContentView: View {
             }
         }
     }
+    
+    private func printItemInfo(item: ToDoItem)-> some View{
+        VStack(alignment: .leading){
+            Text("Tittle: \n \(item.title)")
+            Text("Timestamp: \n \(item.timestamp)")
+            if let deadline = item.deadline{
+                Text("Deadline: \n \(deadline)")
+            }
+            Text("Is Done?  \(item.isDone)")
+        }
+    }
 }
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: ToDoItem.self, inMemory: true)
 }

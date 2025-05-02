@@ -27,7 +27,7 @@ struct EmptyResponse: Decodable {}
 class APIService: ObservableObject {
     static let shared = APIService()
     internal let baseURL = URL(string: "http://127.0.0.1:8080")!
-        
+        // Use the /dummyData for the requests. To test the frontend w/o backend.
     private init() { }
     
     //Request creation including bearer token
