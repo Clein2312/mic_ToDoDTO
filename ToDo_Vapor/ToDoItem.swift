@@ -17,10 +17,13 @@ final class ToDoItem {
     var priority: Priority
     var deadline: Date?
     
-    enum Priority: String, CaseIterable, Codable{
+    enum Priority: String, CaseIterable, Codable, Identifiable{
         case low = "Low"
         case medium = "Medium"
         case high = "High"
+        
+        var id: Self {self}
+        
     }
     
     init(timestamp: Date, id: UUID = UUID(), title: String, isDone: Bool = false, deadline: Date? = nil, priority: Priority = .medium) {

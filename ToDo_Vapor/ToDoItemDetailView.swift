@@ -9,64 +9,113 @@ import SwiftUI
 
 struct ToDoItemDetailView: View {
     @State var toDoItem: ToDoItem
-    @State var date: Date = Date()
-    @State var showDatePicker: Bool = false
-    @State var selectedDate: Date? = nil
+    @State private var date: Date = Date()
+    @State private var showDatePicker: Bool = false
+    @State private var selectedDate: Date? = nil
+    
     
     var body: some View {
-        VStack(){
+        VStack(alignment: .leading){
             Text(toDoItem.title)
                 .font(.title)
                 .fontWeight(.bold)
-                .padding()
-
-            HStack {
-                Toggle("Mark as done", isOn: $toDoItem.isDone).labelsHidden()
-                
-                Text("\(toDoItem.isDone ? "Done" : "Not done")")
-            }
+                .padding(.leading)
             
-            
-            HStack {
-                
-                Button("Deadline: ",systemImage: "calendar"){
-                    showDatePicker.toggle()
+            Grid {
+                GridRow{
+                    Toggle("Mark as done", isOn: $toDoItem.isDone).labelsHidden()
+                    
+                    Spacer()
+                        .frame(width: 100)
+                    
+                    
+                    Text("\(toDoItem.isDone ? "Done" : "Not done")")
+                    
+                    Spacer()
                 }
+                .padding(.vertical)
                 
-                if let deadline = toDoItem.deadline {
-                    Text(deadline,style: .date)
-                }else{
-                    Text("No Date")
-                }
-                
-            }
-            if showDatePicker {
-                DatePicker("Select Deadline", selection: $date).datePickerStyle(.graphical)
-                    .onDisappear {
-                        toDoItem.deadline = date
-                        showDatePicker = false
+                GridRow{
+                    Text("Priority: ")
+                    
+                    switch toDoItem.priority {
+                    case .high:
+                        Image(systemName: "exclamationmark.circle.fill").foregroundStyle(Color.red)
+                    case .medium:
+                        Image(systemName: "circle.fill").foregroundStyle(Color.green)
+                        
+                    case .low:
+                        Image(systemName: "arrow.down.circle.fill").foregroundStyle(Color.blue)
+                        
                     }
-                HStack{
-                    Button("Done"){
+                    
+                    Spacer(minLength: 2)
+                    
+                    
+                    
+                    Picker("Priority", selection: $toDoItem.priority){
+                        ForEach(ToDoItem.Priority.allCases){
+                            prio in Text(prio.rawValue)
+                        }
+                    }.foregroundStyle(Color.black)
+                    
+                    //Spacer()
+                }.padding(.vertical)
+                
+                GridRow{
+                    Button("Deadline: ",systemImage: "calendar"){
                         showDatePicker.toggle()
                     }
-                    Button("Remove Date"){
-                        
-                        toDoItem.deadline = nil
-                        
+                    Spacer ()
+                    if let deadline = toDoItem.deadline {
+                        Text(deadline,style: .date)
+                    }else{
+                        Text("No Date")
                     }
-                }
-            }else{
-                //if deadline is set: show delete deadline
-                if let deadline = toDoItem.deadline {
-                    Button("Remove Deadline"){
-                        toDoItem.deadline = nil
+                }.padding(.vertical)
+                
+                
+                GridRow{
+                    if showDatePicker {
+                        DatePicker("Select Deadline", selection: $date)
+                            .datePickerStyle(.graphical)
+                            .onDisappear {
+                                toDoItem.deadline = date
+                                showDatePicker = false
+                            }
+                        GridRow{
+                            Button("Done"){
+                                showDatePicker.toggle()
+                            }
+                            Button("Remove Date"){
+                                
+                                toDoItem.deadline = nil
+                                
+                            }
+                        }
                     }
+                    else{
+                        GridRow{
+                            //if deadline is set: show delete deadline
+                            if let deadline = toDoItem.deadline {
+                                Button("Remove Deadline"){
+                                    toDoItem.deadline = nil
+                                }
+                            }
+                        }
+                    }
+                    
+                    
+                    
+                    
+                    
                 }
+                
+                
+                
+                
             }
             
-            
-            Spacer()
         }
     }
 }
