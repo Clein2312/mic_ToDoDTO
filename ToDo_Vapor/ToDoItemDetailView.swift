@@ -97,7 +97,7 @@ struct ToDoItemDetailView: View {
                     else{
                         GridRow{
                             //if deadline is set: show delete deadline
-                            if let deadline = toDoItem.deadline {
+                            if toDoItem.deadline != nil {
                                 Button("Remove Deadline"){
                                     toDoItem.deadline = nil
                                 }

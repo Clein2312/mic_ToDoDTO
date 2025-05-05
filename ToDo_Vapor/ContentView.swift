@@ -12,45 +12,59 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [ToDoItem]
     @State private var newItemTitle: String = ""
+    @StateObject var viewModel: ToDoItemViewModel
+    @State private var isLoading: Bool = false
+    @State private var selectedItem: ToDoItem?
     
     var body: some View {
-            
-            
-            
+        
             NavigationSplitView {
                 VStack{
                     Text("ToDo App")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .foregroundStyle(.tint)
+                    
+                    HStack {
+                        TextField("New ToDO item...", text: $newItemTitle)
+                            .onSubmit {
+                                addItem()
+                            }
+                            .padding()
+                            .cornerRadius(8)
+                            .font(.headline)
                         
-                    TextField("New ToDO item...", text: $newItemTitle)
-                        .onSubmit {
-                            addItem()
-                        }
-                        .padding()
-                        .cornerRadius(8)
-                        .font(.headline)
+                        Button(action: addItem){
+                            Image(systemName: "plus").font(.title2)
+                        }.disabled(newItemTitle.isEmpty)
+                    }.padding(.horizontal)
+                    
+                    
                     
                     Divider()
-                    List {
-                        ForEach(items) { item in
-                            NavigationLink {
-                                printItemInfo(item: item)
-                            } label: {
-                                Text(item.title)
+                    
+                    if isLoading {
+                        ProgressView("Loading items...")
+                            .padding()
+                    }else{
+                        
+                        List {
+                            ForEach(items) { item in
+                                NavigationLink(value:item) {
+                                    ToDoItemRow(item: item)
+                                }
                             }
+                            .   onDelete(perform: deleteItems)
                         }
-                        .onDelete(perform: deleteItems)
                     }
                 }
-                .toolbar {
+                        .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         EditButton()
                     }
                     ToolbarItem {
-                        Button(action: addItem) {
-                            Label("Add Item", systemImage: "plus")
+                        Button(action: refreshItems) {
+                            Label("Refresh", systemImage: "arrow.clockwise")
                         }
                     }
                 }
@@ -88,9 +102,19 @@ struct ContentView: View {
             Text("Is Done?  \(item.isDone)")
         }
     }
+    
+    private func refreshItems() {
+        isLoading = true
+        Task{
+            await viewModel.fetchToDoItems()
+            await MainActor.run {
+                isLoading = false
+            }
+        }
+    }
 }
 
 #Preview {
-    ContentView()
+    ContentView( viewModel: ToDoItemViewModel())
         .modelContainer(for: ToDoItem.self, inMemory: true)
 }
