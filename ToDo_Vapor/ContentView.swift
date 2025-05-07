@@ -168,16 +168,18 @@ struct ContentView: View {
         withAnimation {
             for index in offsets {
                 deleteItem(items[index])
+                
             }
         }
     }
     
     
     private func deleteItem(_ item: ToDoItem){
+        print("Deleting item: \(item.title)")
         Task {
             isLoading = true
             await viewModel.deleteToDoItem(toDoItem: item)
-           
+            modelContext.delete(item)
             isLoading = false
         }
     }

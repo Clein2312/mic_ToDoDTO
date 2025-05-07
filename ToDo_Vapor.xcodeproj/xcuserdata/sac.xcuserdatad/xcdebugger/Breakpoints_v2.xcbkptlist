@@ -98,36 +98,6 @@
             endingLineNumber = "107"
             landmarkName = "deleteToDoItem(toDoItem:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "E0142BC4-EEA8-4FDE-B3E9-968649009D74 - 97c022d43f580046"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for ToDo_Vapor.ToDoItemViewModel.deleteToDoItem(toDoItem: ToDo_Vapor.ToDoItem) async -&gt; ()"
-                  moduleName = "ToDo_Vapor.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sac/Documents/001_Documents_Toshiba/_Teaching_Modules_HSRW/Mobile%20and%20Internet%20Computing/2025-1/Code/ToDo_Vapor/mic_ToDoDTO/ToDo_Vapor/ItemViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "107"
-                  endingLineNumber = "107">
-               </Location>
-               <Location
-                  uuid = "E0142BC4-EEA8-4FDE-B3E9-968649009D74 - 153c238ef81e2641"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(4) suspend resume partial function for ToDo_Vapor.ToDoItemViewModel.deleteToDoItem(toDoItem: ToDo_Vapor.ToDoItem) async -&gt; ()"
-                  moduleName = "ToDo_Vapor.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sac/Documents/001_Documents_Toshiba/_Teaching_Modules_HSRW/Mobile%20and%20Internet%20Computing/2025-1/Code/ToDo_Vapor/mic_ToDoDTO/ToDo_Vapor/ItemViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "107"
-                  endingLineNumber = "107">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -172,8 +142,8 @@
             filePath = "ToDo_Vapor/ContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "178"
-            endingLineNumber = "178"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
             landmarkName = "deleteItem(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -198,7 +168,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "61E656F9-DE70-4D6B-8703-A750A162CA69"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ToDo_Vapor/APIService.swift"
@@ -207,6 +177,86 @@
             startingLineNumber = "116"
             endingLineNumber = "116"
             landmarkName = "deleteToDoItem(id:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1D4A4985-7B9C-4888-968F-ED1E8FFC1435"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ToDo_Vapor/ItemViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
+            landmarkName = "deleteToDoItem(toDoItem:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "22BAF0B0-9B29-4688-98E5-F6604024C016"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ToDo_Vapor/ItemViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
+            landmarkName = "deleteToDoItem(toDoItem:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0A976FCA-6A63-4196-AB5C-2F9FB72BE400"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ToDo_Vapor/ContentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "170"
+            endingLineNumber = "170"
+            landmarkName = "deleteItems(offsets:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "995AC537-EFEF-415A-8A69-8A66A2B99352"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ToDo_Vapor/ContentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "182"
+            endingLineNumber = "182"
+            landmarkName = "deleteItem(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C54520A8-E7F2-46F5-9662-5B66671599D5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ToDo_Vapor/ContentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "181"
+            endingLineNumber = "181"
+            landmarkName = "deleteItem(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
