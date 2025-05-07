@@ -26,9 +26,9 @@ final class ToDoItem {
         
     }
     
-    init(timestamp: Date, id: UUID = UUID(), title: String, isDone: Bool = false, deadline: Date? = nil, priority: Priority = .medium) {
+    init(timestamp: Date = .now, id: UUID = UUID(), title: String, isDone: Bool = false, deadline: Date? = nil, priority: Priority = .medium) {
         self.timestamp = timestamp
-        self.id = UUID()
+        self.id = id
         self.title = title
         self.isDone = isDone
         self.deadline = deadline ?? nil
@@ -38,6 +38,7 @@ final class ToDoItem {
 
 struct ToDoItemCreateDTO: Codable {
     var title: String
+    var timestamp: Date = Date()
     var isDone: Bool = false
     var deadline: Date?
     var priority: String = "Medium"

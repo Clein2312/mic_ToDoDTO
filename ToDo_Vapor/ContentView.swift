@@ -15,6 +15,7 @@ struct ContentView: View {
     @State var viewModel: ToDoItemViewModel
     @State private var isLoading: Bool = false
     @State private var selectedItem: ToDoItem?
+    @State private var isEditMode: Bool = false
     
     var body: some View {
         
@@ -28,15 +29,15 @@ struct ContentView: View {
                     HStack {
                         TextField("New ToDO item...", text: $newItemTitle)
                             .onSubmit {
-                                //addItem()
-                                addItem_test()
+                                addItem()
+                                //addItem_test()
                             }
                             .padding()
                             .cornerRadius(8)
                             .font(.headline)
                         
-                        //Button(action: addItem){
-                        Button(action: addItem_test){
+                        Button(action: addItem){
+                        //Button(action: addItem_test){
                             Image(systemName: "plus").font(.title2)
                         }.disabled(newItemTitle.isEmpty)
                     }.padding(.horizontal)
@@ -56,20 +57,35 @@ struct ContentView: View {
                                     ToDoItemRow(item: item)
                                 }
                             }
-                            //.onDelete(perform: deleteItems)
-                            .onDelete(perform: deleteItems_test)
+                            .onDelete(perform: deleteItems)
+                            
+                            //.onDelete(perform: deleteItems_test)
                         }
                     }
                 }
-                        .toolbar {
+                .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         EditButton()
+                            
                     }
                     ToolbarItem {
                         Button(action: refreshItems) {
                             Label("Refresh", systemImage: "arrow.clockwise")
                         }
                     }
+                    ToolbarItem{
+                        Button(action: deleteAllItems_test){
+                            Label("Delete All", systemImage: "trash")
+                        }
+                    }
+                }
+                
+                .navigationDestination(for: ToDoItem.self){ item in
+                   ToDoItemDetailView(toDoItem: item)
+                        .onDisappear {
+                            // update
+                            
+                        }
                 }
             } detail: {
                 Text("Select an item")
@@ -91,6 +107,15 @@ struct ContentView: View {
         }
     }
     
+    private func refreshItems() {
+        isLoading = true
+        Task{
+            await viewModel.fetchToDoItems()
+            await MainActor.run {
+                isLoading = false
+            }
+        }
+    }
             
 //MARK: Add an Item:
     
@@ -109,6 +134,7 @@ struct ContentView: View {
         withAnimation {
             let data = ToDoItemCreateDTO(
                 title: newItemTitle
+                
             )
             
             Task {
@@ -120,11 +146,20 @@ struct ContentView: View {
         }
     }
 
-    //Mark Delete Items
+    //MARK: Delete Items
     private func deleteItems_test(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
                 modelContext.delete(items[index])
+                
+            }
+        }
+    }
+    
+    private func deleteAllItems_test(){
+        withAnimation{
+            for item in items{
+                modelContext.delete(item)
             }
         }
     }
@@ -137,13 +172,21 @@ struct ContentView: View {
         }
     }
     
+    
     private func deleteItem(_ item: ToDoItem){
         Task {
             isLoading = true
             await viewModel.deleteToDoItem(toDoItem: item)
+           
             isLoading = false
         }
     }
+    
+    // MARK: Fetch one item
+    
+    
+    
+    // MARK: Update one item
     
     
     
@@ -158,15 +201,7 @@ struct ContentView: View {
         }
     }
     
-    private func refreshItems() {
-        isLoading = true
-        Task{
-            await viewModel.fetchToDoItems()
-            await MainActor.run {
-                isLoading = false
-            }
-        }
-    }
+    
 }
 
 #Preview {
