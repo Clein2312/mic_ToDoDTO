@@ -25,7 +25,7 @@ struct ToDo_VaporApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(viewModel: ToDoItemViewModel())
         }
         .modelContainer(sharedModelContainer)
     }

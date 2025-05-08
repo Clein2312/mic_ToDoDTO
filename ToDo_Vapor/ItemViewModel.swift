@@ -103,6 +103,7 @@ final class ToDoItemViewModel: ObservableObject {
     func deleteToDoItem(toDoItem: ToDoItem) async {
         guard let context = modelContext else { return }
         do {
+            
             try await APIService.shared.deleteToDoItem(id: toDoItem.id)
             context.delete(toDoItem)
             try context.save()

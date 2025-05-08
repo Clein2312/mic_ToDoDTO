@@ -26,7 +26,7 @@ struct EmptyResponse: Decodable {}
 
 class APIService: ObservableObject {
     static let shared = APIService()
-    internal let baseURL = URL(string: "http://127.0.0.1:8080")!
+    internal let baseURL = URL(string: "http://127.0.0.1:8080/todos")!
         // Use the /dummyData for the requests. To test the frontend w/o backend.
     private init() { }
     
@@ -113,7 +113,8 @@ class APIService: ObservableObject {
        }
        
        func deleteToDoItem(id: UUID) async throws {
-           let request = authorizedRequest(url: baseURL, method: "DELETE")
+           let url = baseURL.appendingPathComponent(id.uuidString)
+           let request = authorizedRequest(url: url, method: "DELETE")
            let (responseData, response) = try await URLSession.shared.data(for: request)
            _ = try handleResponse(EmptyResponse.self, data: responseData, response: response)
        }
