@@ -3,18 +3,7 @@
 # Created by https://www.toptal.com/developers/gitignore/api/macos,xcode
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,xcode
  
-Packages
-.build
-xcuserdata
-*.xcodeproj
-*.xcodeproj/
-DerivedData/
-.DS_Store
-db.sqlite
-.swiftpm
-.env
-.env.*
-!.env.example
+
 
 ### macOS ###
 # General
@@ -66,3 +55,16 @@ xcuserdata/
 **/xcshareddata/WorkspaceSettings.xcsettings
  
 # End of https://www.toptal.com/developers/gitignore/api/macos,xcode
+
+Packages
+.build
+xcuserdata
+*.xcodeproj
+*.xcodeproj/
+DerivedData/
+.DS_Store
+db.sqlite
+.swiftpm
+.env
+.env.*
+!.env.example
