@@ -3,6 +3,18 @@
 # Created by https://www.toptal.com/developers/gitignore/api/macos,xcode
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,xcode
  
+Packages
+.build
+xcuserdata
+*.xcodeproj
+DerivedData/
+.DS_Store
+db.sqlite
+.swiftpm
+.env
+.env.*
+!.env.example
+
 ### macOS ###
 # General
 .DS_Store
