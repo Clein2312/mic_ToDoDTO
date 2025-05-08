@@ -1,0 +1,22 @@
+{
+  "configurations": [
+    {
+      "type": "swift",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:todoAppNew}",
+      "name": "Debug todoAppNew",
+      "program": "${workspaceFolder:todoAppNew}/.build/debug/todoAppNew",
+      "preLaunchTask": "swift: Build Debug todoAppNew"
+    },
+    {
+      "type": "swift",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:todoAppNew}",
+      "name": "Release todoAppNew",
+      "program": "${workspaceFolder:todoAppNew}/.build/release/todoAppNew",
+      "preLaunchTask": "swift: Build Release todoAppNew"
+    }
+  ]
+}
